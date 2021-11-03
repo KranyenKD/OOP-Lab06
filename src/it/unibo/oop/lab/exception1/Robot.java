@@ -4,7 +4,7 @@ package it.unibo.oop.lab.exception1;
  * Models a generic Robot.
  * 
  */
-public class Robot {
+public class Robot{
 
     private static final int BATTERY_EMPTY = 0;
     private static final int MOVEMENT_DELTA = 1;
@@ -86,14 +86,16 @@ public class Robot {
     private boolean moveToPosition(final int newX, final int newY) {
         boolean returnValue = true;
         if (this.isBatteryEnoughToMove()) {
-            if (this.environment.move(newX, newY)) {
-                this.consumeBatteryForMovement();
+        	try {
+        		this.environment.move(newX, newY);
+        		this.consumeBatteryForMovement();
                 this.log("Moved to position(" + newX + "," + newY + ").");
-            } else {
-                this.log("Can not move to (" + newX + "," + newY
-                        + ") the robot is touching at least one world boundary");
+        	}
+        	catch(PositionOutOfBoundException e ){
+        		
+        		this.log(e.getMessage());
                 returnValue = false;
-            }
+        	}
         } else {
             this.log("Can not move to position(" + newX + "," + newY + "). Not enough battery.");
             returnValue = false;

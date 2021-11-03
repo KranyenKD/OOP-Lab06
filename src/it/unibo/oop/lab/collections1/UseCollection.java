@@ -1,11 +1,14 @@
 package it.unibo.oop.lab.collections1;
 
+import java.util.*;
+
 /**
  * Example class using {@link java.util.List} and {@link java.util.Map}.
  * 
  */
 public final class UseCollection {
-
+	private static final int ELEMS = 1_000_000;
+    private static final int TO_MS = 1_000_000;
     private UseCollection() {
     }
 
@@ -14,6 +17,21 @@ public final class UseCollection {
      *            unused
      */
     public static void main(final String... s) {
+    	
+    	HashMap<String,String> hm = new HashMap<String,String>();
+    	hm.put("Africa","1110635000");
+    	hm.put("Americas", "972005000");
+    	hm.put("Antarctica", "0");		
+    	hm.put("Asia", "4298723000");  
+    	hm.put("Europe", "742452000");
+    	hm.put("Oceania", "38304000");
+    	Set<String> se = hm.keySet();
+    	Long  x = (long) 0;
+    	for(String st : se) {
+    		x = x + Long.parseLong(hm.get(st));
+    	}
+    	System.out.println(x);       
+    	         
         /*
          * 1) Create a new ArrayList<Integer>, and populate it with the numbers
          * from 1000 (included) to 2000 (excluded).

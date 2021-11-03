@@ -1,6 +1,8 @@
 package it.unibo.oop.lab.collections2;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * 
      * think of what type of keys and values would best suit the requirements
      */
-
+	private HashMap<String,Collection<U>> hm = new HashMap<>();
     /*
      * [CONSTRUCTORS]
      * 
@@ -40,7 +42,8 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * 
      * 2) Define a further constructor where age is defaulted to -1
      */
-
+	
+	
     /**
      * Builds a new {@link SocialNetworkUserImpl}.
      * 
@@ -57,6 +60,9 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
     public SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
         super(name, surname, user, userAge);
     }
+    public SocialNetworkUserImpl(final String name, final String surname, final String user) {
+        super(name, surname, user, -1);
+    }
 
     /*
      * [METHODS]
@@ -66,17 +72,39 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
 
     @Override
     public boolean addFollowedUser(final String circle, final U user) {
-        return false;
+    	if(hm.containsKey(circle)){
+    		Collection<U> Cu = hm.get(circle);
+    		if(Cu.contains(user)) {
+    			return false;
+    		}
+    		else {
+    			Cu.add(user);
+    			
+    			return true;
+    		}
+    	}
+    	else {
+    		Collection<U> Cu = new ArrayList<>();
+    		Cu.add(user);
+    		hm.put(circle, Cu);
+    		return true;
+    	}
     }
 
     @Override
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        return null;
+    	if(hm.containsKey(groupName)) {
+    		return hm.get(groupName);
+    	}
+    	else {
+    		return new ArrayList<>();
+    	}
+        
     }
 
     @Override
     public List<U> getFollowedUsers() {
-        return null;
+        return (List<U>) hm.values();
     }
 
 }

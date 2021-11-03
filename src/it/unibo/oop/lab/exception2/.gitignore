@@ -1,0 +1,7 @@
+/AccountHolder.class
+/BankAccount.class
+/StrictBankAccount.class
+/TestStrictBankAccount.class
+/WrongAccountHolderException.class
+/NotEnoughFoundsException.class
+/TransactionsOverQuotaException.class

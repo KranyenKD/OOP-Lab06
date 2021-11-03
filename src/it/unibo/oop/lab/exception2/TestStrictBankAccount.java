@@ -1,5 +1,8 @@
 package it.unibo.oop.lab.exception2;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -23,5 +26,28 @@ public final class TestStrictBankAccount {
          * presenza di un id utente errato, oppure al superamento del numero di
          * operazioni ATM gratuite.
          */
+    	AccountHolder a1 = new AccountHolder("Pippo", "Lino", 100);
+    	AccountHolder a2 = new AccountHolder("Pappa", "Lana", 101);
+    	StrictBankAccount str1 = new StrictBankAccount(a1.getUserID(), 10000, 10);
+    	StrictBankAccount str2 = new StrictBankAccount(a2.getUserID(), 10000, 10);
+    	
+    	try {
+    		str1.deposit(10,1000);
+    	}
+    	catch(WrongAccountHolderException e){
+    		System.out.println(e);
+    	}
+    	try {
+    		str1.withdraw(a1.getUserID(), 200000);
+    	}
+    	catch(NotEnoughFoundsException e){
+    		System.out.println(e);
+    	}
+    	try {
+    		str1.withdraw(a1.getUserID(), 200000);
+    	}
+    	catch(NotEnoughFoundsException e){
+    		System.out.println(e);
+    	}
     }
 }
