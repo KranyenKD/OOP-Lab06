@@ -94,7 +94,9 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
     @Override
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
     	if(hm.containsKey(groupName)) {
-    		return hm.get(groupName);
+    		Collection<U> cu = new ArrayList<U>();
+    		cu.addAll(hm.get(groupName));
+    		return cu;
     	}
     	else {
     		return new ArrayList<>();
@@ -104,7 +106,9 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
 
     @Override
     public List<U> getFollowedUsers() {
-        return (List<U>) hm.values();
+    	Collection<U> cu = new ArrayList<U>();
+    	cu.addAll((Collection<? extends U>) hm.values());
+        return (List<U>) cu;
     }
 
 }
